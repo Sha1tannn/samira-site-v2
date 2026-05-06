@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Предметы — Самый умный{% endblock %}
+{% block content %}
+<section class="page-hero section"><div class="container"><p class="eyebrow">Каталог предметов</p><h1>Школьные предметы для детей 6–18 лет</h1><p class="lead">Для каждого направления можно выбрать индивидуальные занятия, мини-группу, подготовку к контрольным или экзаменационный интенсив.</p></div></section>
+<section class="section"><div class="container"><div class="subject-grid detailed">{% for subject in subjects %}<article class="subject-card"><h3>{{ subject.title }}</h3><p><strong>Возраст:</strong> {{ subject.age }}</p><p><strong>Формат:</strong> {{ subject.format }}</p><p><strong>Цель:</strong> {{ subject.goal }}</p></article>{% endfor %}</div></div></section>
+{% endblock %}

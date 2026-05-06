@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Самый умный — онлайн-школа{% endblock %}</title>
+  <meta name="description" content="Онлайн-школа «Самый умный»: занятия по школьным предметам для детей 6–18 лет, подготовка к ОГЭ и ЕГЭ, заявки через сайт и Telegram.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Основная навигация">
+      <a class="brand" href="{{ url_for('index') }}" aria-label="На главную">
+        <span class="brand-mark">★</span>
+        <span>Самый умный</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Меню</button>
+      <div class="nav-links" id="main-menu">
+        <a href="{{ url_for('about') }}">О школе</a>
+        <a href="{{ url_for('subjects') }}">Предметы</a>
+        <a href="{{ url_for('formats') }}">Форматы</a>
+        <a href="{{ url_for('faq') }}">FAQ</a>
+        <a href="{{ url_for('privacy') }}">Политика данных</a>
+        <a class="btn btn-small" href="{{ url_for('index', _anchor='signup') }}">Записаться</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-wrap container" role="status" aria-live="polite">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer" id="contacts">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">★</span><span>Самый умный</span></a>
+        <p>Центральный пользовательский интерфейс онлайн-школы: представление услуг, сбор заявок, передача контактов администратору и интеграция с Telegram-ботом.</p>
+      </div>
+      <div>
+        <h3>Контакты</h3>
+        <p>Telegram: <a href="https://t.me/samy_umny_school">@samy_umny_school</a></p>
+        <p>Email: hello@samy-umny.example</p>
+      </div>
+      <div>
+        <h3>Разделы</h3>
+        <a href="{{ url_for('subjects') }}">Каталог предметов</a>
+        <a href="{{ url_for('formats') }}">Абонементы</a>
+        <a href="{{ url_for('faq') }}">Вопросы и ответы</a>
+      </div>
+    </div>
+  </footer>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

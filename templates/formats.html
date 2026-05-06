@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Форматы и тарифы — Самый умный{% endblock %}
+{% block content %}
+<section class="page-hero section"><div class="container"><p class="eyebrow">Форматы обучения</p><h1>Гибкие занятия под школьную цель</h1><p class="lead">Можно начать с пробной диагностики, разобрать отдельную тему или построить длительную подготовку к экзаменам.</p></div></section>
+<section class="section"><div class="container split"><div><h2>Доступные форматы</h2><ul class="check-list">{% for item in formats %}<li>{{ item }}</li>{% endfor %}</ul></div><div class="info-panel"><h3>Личный кабинет в перспективе</h3><p>Личный кабинет ученика находится в плане развития системы. В нём будут расписание, история занятий, остаток уроков по абонементу и уведомления.</p></div></div></section>
+<section class="section muted"><div class="container"><div class="section-heading"><p class="eyebrow">Абонементы</p><h2>Пакеты без привязки к реальным ценам</h2></div><div class="cards four">{% for tariff in tariffs %}<article class="card tariff"><h3>{{ tariff.name }}</h3><span>{{ tariff.lessons }}</span><p>{{ tariff.details }}</p><a href="{{ url_for('index', _anchor='signup') }}">Выбрать пакет →</a></article>{% endfor %}</div></div></section>
+<section class="section"><div class="container"><div class="notice"><h2>Результаты обучения</h2><p>Ожидаемые результаты: повышение успеваемости, систематизация знаний, уверенность перед экзаменами, умение задавать вопросы и самостоятельно выполнять задания.</p></div></div></section>
+{% endblock %}

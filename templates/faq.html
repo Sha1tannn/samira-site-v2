@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}FAQ — Самый умный{% endblock %}
+{% block content %}
+<section class="page-hero section"><div class="container"><p class="eyebrow">FAQ</p><h1>Вопросы и ответы</h1><p class="lead">Собрали базовые ответы о занятиях, переносах, записи и связи через Telegram.</p></div></section>
+<section class="section"><div class="container faq-list">{% for item in faq %}<details><summary>{{ item.question }}</summary><p>{{ item.answer }}</p></details>{% endfor %}</div></section>
+{% endblock %}
