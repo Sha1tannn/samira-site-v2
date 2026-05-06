@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero section">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Онлайн-школа для детей 6–18 лет</p>
+      <h1>Онлайн-школа «Самый умный»</h1>
+      <p class="lead">Обучение по всем школьным предметам: подтягиваем оценки, закрываем пробелы, готовим к ОГЭ/ЕГЭ и развиваем интерес к знаниям.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#signup">Записаться</a>
+        <a class="btn btn-secondary" href="https://t.me/samy_umny_school">Связаться в Telegram</a>
+      </div>
+    </div>
+    <div class="hero-card" aria-label="Иллюстрация образовательной платформы">
+      <div class="screen">
+        <span class="dot blue"></span><span class="dot green"></span><span class="dot yellow"></span>
+        <div class="lesson-line wide"></div>
+        <div class="lesson-line"></div>
+        <div class="lesson-grid"><span>📚</span><span>💻</span><span>⭐</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section muted">
+  <div class="container">
+    <div class="section-heading"><p class="eyebrow">Цели обучения</p><h2>Помогаем ребёнку учиться спокойнее и увереннее</h2></div>
+    <div class="cards three">
+      <article class="card"><h3>Подтянуть оценки</h3><p>Разбираем школьные темы простым языком и закрепляем их на практике.</p></article>
+      <article class="card"><h3>Подготовиться к ОГЭ/ЕГЭ</h3><p>Составляем план, решаем варианты и отслеживаем прогресс по критериям экзамена.</p></article>
+      <article class="card"><h3>Закрыть пробелы</h3><p>Находим слабые места и возвращаем ученику уверенность в предмете.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="subjects">
+  <div class="container">
+    <div class="section-heading row"><div><p class="eyebrow">Предметы</p><h2>Каталог школьных направлений</h2></div><a href="{{ url_for('subjects') }}">Все предметы →</a></div>
+    <div class="subject-grid">
+      {% for subject in subjects[:6] %}
+        <article class="subject-card"><h3>{{ subject.title }}</h3><p>{{ subject.goal }}</p><span>{{ subject.age }}</span></article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section muted">
+  <div class="container">
+    <div class="section-heading"><p class="eyebrow">Возрастные направления</p><h2>Программа зависит от возраста и цели</h2></div>
+    <div class="timeline">
+      {% for track in age_tracks %}
+        <article><span>{{ track.range }}</span><h3>{{ track.title }}</h3><p>{{ track.text }}</p></article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div>
+      <p class="eyebrow">Форматы занятий</p>
+      <h2>От разового разбора темы до системной подготовки</h2>
+      <ul class="check-list">
+        {% for item in formats %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    </div>
+    <div class="info-panel">
+      <h3>Как проходит обучение</h3>
+      <ol>
+        <li>Заявка на сайте или сообщение в Telegram.</li>
+        <li>Диагностика уровня и выбор цели.</li>
+        <li>Подбор преподавателя по предмету и уровню ученика.</li>
+        <li>Занятия, домашняя практика и регулярная обратная связь.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section muted">
+  <div class="container">
+    <div class="section-heading"><p class="eyebrow">Преимущества</p><h2>Почему родителям можно доверять школе</h2></div>
+    <div class="cards four">
+      <article class="card"><h3>Индивидуальный план</h3><p>Маршрут строится под цель ученика и текущий уровень.</p></article>
+      <article class="card"><h3>Понятная коммуникация</h3><p>Заявки и уведомления оперативно передаются через Telegram.</p></article>
+      <article class="card"><h3>Контроль результата</h3><p>Фиксируем прогресс, темы и рекомендации после занятий.</p></article>
+      <article class="card"><h3>Развитие платформы</h3><p>Личный кабинет ученика находится в плане развития системы.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="signup">
+  <div class="container split signup">
+    <div>
+      <p class="eyebrow">Запись на занятие</p>
+      <h2>Оставьте заявку — мы подберём формат и преподавателя</h2>
+      <p>В перспективе личный кабинет будет показывать расписание, историю занятий, остаток уроков по абонементу и уведомления.</p>
+    </div>
+    <form class="form-card" action="{{ url_for('apply') }}" method="post">
+      <label>Имя родителя или ученика<input name="parent_name" required placeholder="Например, Анна"></label>
+      <label>Телефон или Telegram<input name="contact" required placeholder="+7 ... или @username"></label>
+      <label>Возраст ребёнка<input name="child_age" required placeholder="Например, 12 лет"></label>
+      <label>Предмет<select name="subject"><option value="">Выберите предмет</option>{% for subject in subjects %}<option>{{ subject.title }}</option>{% endfor %}</select></label>
+      <label>Цель обучения<textarea name="goal" rows="4" placeholder="Подтянуть оценки, подготовиться к ОГЭ/ЕГЭ..."></textarea></label>
+      <label class="consent"><input type="checkbox" required> Согласен(на) с <a href="{{ url_for('privacy') }}">политикой обработки данных</a></label>
+      <button class="btn" type="submit">Отправить заявку</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
